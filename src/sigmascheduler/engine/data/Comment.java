@@ -1,12 +1,22 @@
 package sigmascheduler.engine.data;
 
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import org.hibernate.annotations.*;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.*;
+/**
+ * Event Comment
+ * 
+ * @author Vogt , Kodras
+ * 
+ */
 @Entity
 public class Comment {
+	@Id
+	private int id;
 	
 	@Column
 	private User author;
@@ -35,7 +45,17 @@ public class Comment {
 	public Event getEvent() {
 		return event;
 	}
-
+	
+	public int getEid() {
+		return id;
+	}
+	
+	//Setter
+	
+	public void setEid(int id) {
+		this.id = id;
+	}
+	
 	public void setAuthor(User author) {
 		this.author = author;
 	}

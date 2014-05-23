@@ -1,14 +1,25 @@
 package sigmascheduler.engine.data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+
 
 import org.hibernate.annotations.Entity;
-
+/**
+ * Notification Mapping
+ * 
+ * @author Vogt,Kodras
+ * 
+ */
 @Entity
 public class Notification {
+	@Id
+	private int id;
 	
-	@ManyToMany
+	@OneToOne
 	private User user;
 	
 	@Column
@@ -17,7 +28,8 @@ public class Notification {
 	@Column
 	private boolean read;
 	
-	public boolean isRead() {
+	//getter
+	public boolean getRead() {
 		return read;
 	}
 
@@ -28,7 +40,17 @@ public class Notification {
 	public String getText() {
 		return text;
 	}
-
+	
+	public int getEid() {
+		return id;
+	}
+	
+	//Setter
+	
+	public void setEid(int id) {
+		this.id = id;
+	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -1,20 +1,28 @@
 package sigmascheduler.engine.data;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Column;
-import javax.persistence.ManyToMany;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Entity;
-
+/**
+ * Event Mapping
+ * 
+ * @author Vogt , Kodras
+ * 
+ */
 @Entity
 public class Event {
-	
+	@Id
+	private int id;
+
 	@Column
-	private HashMap<Date, List<User>> voteDates;
+	private Map<Date, List<User>> voteDates;
 	
 	@Column
 	private User manager;
@@ -34,16 +42,11 @@ public class Event {
 	@ManyToOne
 	private Comment comment;
 	
-	@ManyToMany
-	private User user;
-
-	//@Column
-	//private Event event;
-	
-	@Column
+	//@OneToOne
 	private EventState eventState;
 
-	public HashMap<Date, List<User>> getVoteDates() {
+	//Getter
+	public Map<Date, List<User>> getVoteDates() {
 		return voteDates;
 	}
 
@@ -71,19 +74,21 @@ public class Event {
 		return comment;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	//public Event getEvent() {
-		//return event;
-	//}
-
 	public EventState getEventState() {
 		return eventState;
 	}
+	
+	public int getEid() {
+		return id;
+	}
+	
+	//Setter
+	
+	public void setEid(int id) {
+		this.id = id;
+	}
 
-	public void setVoteDates(HashMap<Date, List<User>> voteDates) {
+	public void setVoteDates(Map<Date, List<User>> voteDates) {
 		this.voteDates = voteDates;
 	}
 
@@ -110,14 +115,6 @@ public class Event {
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	//public void setEvent(Event event) {
-	//	this.event = event;
-	//}
 
 	public void setEventState(EventState eventState) {
 		this.eventState = eventState;
