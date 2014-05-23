@@ -1,5 +1,5 @@
 package sigmascheduler.engine;
 
-public class userinterface {
+public class Userinterface {
 
 }
