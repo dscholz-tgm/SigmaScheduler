@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Entity;
 /**
@@ -19,6 +21,7 @@ import org.hibernate.annotations.Entity;
 @Entity
 public class Event {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column
@@ -34,6 +37,7 @@ public class Event {
 	private List<Comment> comments;
 	
 	@Column
+	@Enumerated
 	private EventState state;
 	
 	@Column
@@ -42,9 +46,6 @@ public class Event {
 	@ManyToOne
 	private Comment comment;
 	
-	//@OneToOne
-	private EventState eventState;
-
 	//Getter
 	public Map<Date, List<User>> getVoteDates() {
 		return voteDates;
@@ -74,10 +75,6 @@ public class Event {
 		return comment;
 	}
 
-	public EventState getEventState() {
-		return eventState;
-	}
-	
 	public int getEid() {
 		return id;
 	}
@@ -115,9 +112,4 @@ public class Event {
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-
-	public void setEventState(EventState eventState) {
-		this.eventState = eventState;
-	}
-
 }

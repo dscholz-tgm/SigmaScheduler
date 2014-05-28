@@ -1,6 +1,10 @@
 package sigmascheduler.engine.data;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -18,6 +22,7 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 public class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column

@@ -1,9 +1,15 @@
 package sigmascheduler.engine.data;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
+
 
 
 
@@ -17,6 +23,7 @@ import org.hibernate.annotations.Entity;
 @Entity
 public class Notification {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@OneToOne
