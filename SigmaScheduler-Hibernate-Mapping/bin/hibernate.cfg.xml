@@ -5,12 +5,11 @@
 	<session-factory>
 
 		<!-- Database connection settings -->
- 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
- 		<!-- Nach der Erstellung eines Users in der MySQL-Datenbank muessen wie folgt die User-Daten angegeben werden -->
- 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sigmascheduler</property>
-		<property name="hibernate.connection.username">sigmaschedulerBN</property>
-		<property name="hibernate.connection.password">sigmaschedulerPW</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+ 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+ 		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/sigmascheduler</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">moUdcVrBL2</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 	
 		<!-- JDBC connection pool {use the built-in} -->
 		<property name="connection.pool_size">1</property>
@@ -26,9 +25,10 @@
 		<property name="hibernate.hbm2ddl.auto">create</property>
 
 		<!-- Names the annotated entity class -->
+		<mapping class="sigmascheduler.engine.data.User" />
+		<mapping class="sigmascheduler.engine.data.Notification" />
 		<mapping class="sigmascheduler.engine.data.Comment" />
 		<mapping class="sigmascheduler.engine.data.Event" />
-		<mapping class="sigmascheduler.engine.data.Notification" />
-		<mapping class="sigmascheduler.engine.data.User" />
+		<mapping class="sigmascheduler.engine.data.VoteDate" />
 	</session-factory>
 </hibernate-configuration>

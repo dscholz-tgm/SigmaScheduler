@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Database connection settings -->
+ 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+ 		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/sigmascheduler</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">moUdcVrBL2</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+	
+		<!-- JDBC connection pool {use the built-in} -->
+		<property name="connection.pool_size">1</property>
+		
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+		
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hibernate.hbm2ddl.auto">create</property>
+
+		<!-- Names the annotated entity class -->
+		<mapping class="sigmascheduler.engine.data.User" />
+		<mapping class="sigmascheduler.engine.data.Notification" />
+		<mapping class="sigmascheduler.engine.data.Comment" />
+		<mapping class="sigmascheduler.engine.data.Event" />
+		<mapping class="sigmascheduler.engine.data.VoteDate" />
+	</session-factory>
+</hibernate-configuration>

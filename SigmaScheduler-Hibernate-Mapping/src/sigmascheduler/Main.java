@@ -61,10 +61,7 @@ public class Main
 		
 		try 
 		{
-			log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
-			
-			// Die gemappten Tabellen in der Datenbank fuellen.
-			
+			log.info("\"Hibernate-Mapping wurde erfolgreich abgeschlossen\"");			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
