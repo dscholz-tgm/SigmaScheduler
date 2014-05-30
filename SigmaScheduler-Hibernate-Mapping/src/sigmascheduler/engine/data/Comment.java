@@ -6,29 +6,29 @@ import java.util.*;
 import javax.persistence.*;
 
 /**
- * Event Comment
+ * Mappen der Klasse Comment mittels Hibernate-Annotations
  * 
- * @author Vogt , Kodras
- * 
+ * @author Kodras, Oezsoy, Vogt
  */
 @Entity
 @Table(name = "comment")
 public class Comment implements Serializable {
+
 	@Id
 	@GeneratedValue
 	private int id;
-	
+
 	private User author;
-	
+
 	private Date createDate;
-	
+
 	private String text;
-	
+
 	@ManyToOne
 	private Event event;
 
-	// Getter
-	
+	// Getter-Methoden
+
 	public User getAuthor() {
 		return author;
 	}
@@ -44,17 +44,17 @@ public class Comment implements Serializable {
 	public Event getEvent() {
 		return event;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
-	//Setter
-	
+
+	// Setter-Methoden
+
 	public void setId(int id) {
 		this.id = id;
 	}
-		
+
 	public void setAuthor(User author) {
 		this.author = author;
 	}
@@ -70,5 +70,4 @@ public class Comment implements Serializable {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
-
 }

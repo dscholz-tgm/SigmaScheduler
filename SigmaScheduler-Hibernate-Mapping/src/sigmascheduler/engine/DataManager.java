@@ -24,5 +24,4 @@ public class DataManager {
 	public void save(Object object) {
 
 	}
-
 }

@@ -3,30 +3,30 @@ package sigmascheduler.engine.data;
 import javax.persistence.*;
 
 /**
- * Notification Mapping
+ * Mappen der Klasse Notification mittels Hibernate-Annotations
  * 
- * @author Vogt,Kodras, Oezsoy
- * 
+ * @author Kodras, Oezsoy, Vogt
  */
 @Entity
 @Table(name = "notification")
 public class Notification {
+
 	@Id
 	@GeneratedValue
 	private int id;
-		
+
 	@OneToOne
 	private User user;
-	
+
 	private String text;
-	
+
 	private boolean isRead;
-			
-	//getter
+
+	// Getter-Methoden
+
 	public int getId() {
 		return id;
 	}
-	
 
 	public User getUser() {
 		return user;
@@ -35,17 +35,17 @@ public class Notification {
 	public String getText() {
 		return text;
 	}
-	
+
 	public boolean isRead() {
 		return isRead;
 	}
-	
-	//Setter
-	
+
+	// Setter-Methoden
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -5,40 +5,40 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.*;
 
 /**
- * Event User
+ * Mappen der Klasse User mittels Hibernate-Annotations
  * 
- * @author Vogt , Kodras
- * 
+ * @author Kodras, Oezsoy, Vogt
  */
 @Entity
 @Table(name = "benutzer")
 public class User implements Serializable {
+	
 	@Id
 	@GeneratedValue
 	private int id;
-	
+
 	@Size(min = 2, max = 150)
-    @Pattern(regexp = "[a-zA-Z0-9]")
+	@Pattern(regexp = "[a-zA-Z0-9]")
 	private String name;
-	
+
 	@Email
 	private String email;
-	
+
 	@Pattern(regexp = "[a-zA-Z0-9]")
 	private byte[] password;
-	
+
 	@OneToOne
 	private Notification notification;
-	
-	//Getter
-	
+
+	// Getter-Methoden
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -54,20 +54,21 @@ public class User implements Serializable {
 	public Notification getNotification() {
 		return notification;
 	}
-	
+
 	public int getEid() {
 		return id;
 	}
-	
-	//Setter
-	
+
+	// Setter-Methoden
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public void setEid(int id) {
 		this.id = id;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -83,5 +84,4 @@ public class User implements Serializable {
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
-
 }

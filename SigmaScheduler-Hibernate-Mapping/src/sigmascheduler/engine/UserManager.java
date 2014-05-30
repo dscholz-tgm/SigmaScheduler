@@ -18,5 +18,4 @@ public class UserManager {
 	public List<User> searchUser(String name) {
 		return null;
 	}
-
 }

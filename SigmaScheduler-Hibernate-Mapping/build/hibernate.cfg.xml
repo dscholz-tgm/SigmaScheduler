@@ -30,5 +30,6 @@
 		<mapping class="sigmascheduler.engine.data.Comment" />
 		<mapping class="sigmascheduler.engine.data.Event" />
 		<mapping class="sigmascheduler.engine.data.VoteDate" />
+		
 	</session-factory>
 </hibernate-configuration>
