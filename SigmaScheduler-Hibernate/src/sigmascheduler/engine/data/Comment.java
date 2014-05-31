@@ -10,6 +10,7 @@ import javax.persistence.*;
  * 
  * @author Kodras, Oezsoy, Vogt
  */
+@NamedQuery(name = "getAllComments", query = "FROM Comment")
 @Entity
 @Table(name = "comment")
 public class Comment implements Serializable {

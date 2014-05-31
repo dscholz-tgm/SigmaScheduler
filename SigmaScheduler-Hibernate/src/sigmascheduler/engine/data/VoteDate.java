@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  * @author Kodras, Oezsoy, Vogt
  */
+@NamedQuery(name = "getAllVoteDates", query = "FROM VoteDate")
 @Entity
 public class VoteDate {
 

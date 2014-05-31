@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.*;
  * 
  * @author Kodras, Oezsoy, Vogt
  */
+@NamedQuery(name = "getAllUser", query = "FROM User")
 @Entity
 @Table(name = "benutzer")
 public class User implements Serializable {
@@ -55,17 +56,9 @@ public class User implements Serializable {
 		return notification;
 	}
 
-	public int getEid() {
-		return id;
-	}
-
 	// Setter-Methoden
 
 	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setEid(int id) {
 		this.id = id;
 	}
 

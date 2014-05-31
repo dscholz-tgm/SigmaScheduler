@@ -7,6 +7,7 @@ import javax.persistence.*;
  * 
  * @author Kodras, Oezsoy, Vogt
  */
+@NamedQuery(name = "getAllNotifications", query = "FROM Notification")
 @Entity
 @Table(name = "notification")
 public class Notification {

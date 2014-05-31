@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  * @author Kodras, Oezsoy, Vogt
  */
+@NamedQuery(name = "getAllEvents", query = "FROM Event")
 @Entity
 @Table(name = "event")
 public class Event {
