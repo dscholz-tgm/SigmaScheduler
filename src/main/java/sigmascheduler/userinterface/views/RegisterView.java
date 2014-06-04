@@ -1,0 +1,122 @@
+package sigmascheduler.userinterface.views;
+
+import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
+import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+import java.nio.charset.Charset;
+import sigmascheduler.userinterface.listener.RegisterListener;
+
+/**
+ *
+ * @author Dominik
+ */
+public class RegisterView extends VerticalLayout implements View {
+    
+    private final TextField username;
+    private final PasswordField password;
+    private final PasswordField passwordVerification;
+    private final TextField email;
+    private final CssLayout registerPanel;
+    
+    private Label error;
+    
+    public RegisterView() {
+        super();
+        
+        Page.getCurrent().setUriFragment("",false);
+        
+        setSizeFull();
+        addStyleName("login-layout");
+
+        registerPanel = new CssLayout();
+        registerPanel.addStyleName("login-panel");
+
+        HorizontalLayout labels = new HorizontalLayout();
+        labels.setWidth("100%");
+        labels.setMargin(true);
+        labels.addStyleName("labels");
+        registerPanel.addComponent(labels);
+        
+        Resource res = new ThemeResource("img/sigmascheduler.png");
+
+        Image image = new Image(null, res);
+        image.setHeight("200px");
+        labels.addComponent(image);
+        labels.setComponentAlignment(image, Alignment.TOP_CENTER);
+        
+        VerticalLayout fields = new VerticalLayout();
+        fields.setSpacing(true);
+        fields.setMargin(true);
+        fields.addStyleName("fields");
+
+        username = new TextField("Username");
+        username.focus();
+        fields.addComponent(username);
+        fields.setComponentAlignment(username, Alignment.MIDDLE_CENTER);
+
+        password = new PasswordField("Password");
+        fields.addComponent(password);
+        fields.setComponentAlignment(password, Alignment.MIDDLE_CENTER);
+        
+        passwordVerification = new PasswordField("Retype Password");
+        fields.addComponent(passwordVerification);
+        fields.setComponentAlignment(passwordVerification, Alignment.MIDDLE_CENTER);
+        
+        email = new TextField("Email (optional):");
+        fields.addComponent(email);
+        fields.setComponentAlignment(email, Alignment.MIDDLE_CENTER);
+
+        final Button signin = new Button("Sign up");
+        signin.addStyleName("default");
+        signin.setClickShortcut(KeyCode.ENTER, null);
+        fields.addComponent(signin);
+        fields.setComponentAlignment(signin, Alignment.BOTTOM_CENTER);
+
+        signin.addClickListener(new RegisterListener(this));
+        
+        registerPanel.addComponent(fields);
+
+        addComponent(registerPanel);
+        setComponentAlignment(registerPanel, Alignment.MIDDLE_CENTER);
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) { 
+    }
+
+    public String getUsername() { return username.getValue(); }
+    public byte[] getPassword() { return password.getValue().getBytes(Charset.forName("UTF-8")); }
+    public byte[] getPasswordVerification() { return passwordVerification.getValue().getBytes(Charset.forName("UTF-8")); }
+    public String getEmail() { return email.getValue(); }
+
+    public void displayErrorMessage(String message) {
+        //Remove old error message
+        if(error != null) registerPanel.removeComponent(error);
+
+        //Add new error message
+        error = new Label(message,ContentMode.HTML);
+        error.addStyleName("error");
+        error.setSizeUndefined();
+        error.addStyleName("light");
+
+        //Add animation
+        error.addStyleName("v-animate-reveal");
+        registerPanel.addComponent(error);
+        username.focus();
+    }
+    
+}
