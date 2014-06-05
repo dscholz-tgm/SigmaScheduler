@@ -12678,6 +12678,13 @@ body .dashboard.v-app .v-app-loading {
 	font-size: 13px;
 	height: 20px;
 	margin-left: 4px;
+	color: #979699;
+	cursor: pointer;
+}
+
+.dashboard .link:hover {
+	color: #5A6066;
+	cursor: pointer;
 }
 
 .dashboard .datefield-component {

@@ -108,10 +108,20 @@ public class MyEventsView extends HorizontalLayout implements View {
             delete.addClickListener(new ClickListener() {
                 @Override
                 public void buttonClick(ClickEvent clickEvent) {
-                    try {
-                        session.getEventManager().delete(event);
-                    } catch (SigmaSchedulerException ex) {
-                    }
+                    UI.getCurrent().addWindow(new ConfirmWindow(
+                        "Confirm: Delete Event","Are you sure, that you want delete Event \"" + event.getName() + "\"?",
+                            new ClickListener() {
+                                @Override
+                                public void buttonClick(ClickEvent clickEvent) {
+                                    try {
+                                        session.getEventManager().delete(event);
+                                        fillEvents();
+                                    } catch (SigmaSchedulerException ex) {
+                                    }
+                                }
+                            }
+                        )
+                    );
                 }
             });
 

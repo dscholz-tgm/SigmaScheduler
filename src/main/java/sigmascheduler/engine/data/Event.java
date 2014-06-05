@@ -2,7 +2,7 @@ package sigmascheduler.engine.data;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
  * Event which should take place at some point, 
  * our quest is the epic journey to find that point
  * @author Andreas Vogt, Dominik Kodras, Dominik Scholz, Osman Oezsoy
- * @version 0.1
+ * @version 0.2
  */
 @Entity
 @NamedQuery(
@@ -37,14 +37,14 @@ public class Event implements Serializable {
 
     private boolean allowMultipleVotes;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<User> member;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<User> member;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<VoteDate> voteDates;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<VoteDate> voteDates;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Comment> comments;
     
     public int getId() { return id; }
     public String getName() { return name; }
@@ -53,9 +53,9 @@ public class Event implements Serializable {
     public User getManager() { return manager; }
     public Date getCreateDate() { return createDate; }
     public boolean isAllowMultipleVotes() { return allowMultipleVotes; }
-    public List<User> getMember() { return member; }
-    public List<Comment> getComments() { return comments; }
-    public List<VoteDate> getVoteDates() { return voteDates; }
+    public Set<User> getMember() { return member; }
+    public Set<Comment> getComments() { return comments; }
+    public Set<VoteDate> getVoteDates() { return voteDates; }
     
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -64,7 +64,7 @@ public class Event implements Serializable {
     public void setManager(User manager) { this.manager = manager; }
     public void setCreateDate(Date createDate) { this.createDate = createDate; }
     public void setAllowMultipleVotes(boolean allowMultipleVotes) { this.allowMultipleVotes = allowMultipleVotes;}
-    public void setMember(List<User> member) { this.member = member; }
-    public void setComments(List<Comment> kommentare) {  this.comments = kommentare; }
-    public void setVoteDates(List<VoteDate> voteDates) { this.voteDates = voteDates; }
+    public void setMember(Set<User> member) { this.member = member; }
+    public void setComments(Set<Comment> kommentare) {  this.comments = kommentare; }
+    public void setVoteDates(Set<VoteDate> voteDates) { this.voteDates = voteDates; }
 }

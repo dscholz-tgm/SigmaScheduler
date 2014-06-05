@@ -2,8 +2,10 @@ package sigmascheduler.engine;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import sigmascheduler.engine.data.Comment;
 import sigmascheduler.engine.data.Event;
 import sigmascheduler.engine.data.EventState;
@@ -38,15 +40,15 @@ public class EventManager {
         
         event.setCreateDate(new Date());
         event.setAllowMultipleVotes(allowMultipleVotes);
-        event.setComments(new ArrayList<Comment>());
+        event.setComments(new HashSet<Comment>());
         
         //Parsing vote dates
-        List<VoteDate> voteDates = new ArrayList<VoteDate>();
+        Set<VoteDate> voteDates = new HashSet<VoteDate>();
         VoteDate voteDate;
         for(Date date : dates) {
             voteDate = new VoteDate();
             voteDate.setDate(date);
-            voteDate.setVoter(new ArrayList<User>());
+            voteDate.setVoter(new HashSet<User>());
             voteDates.add(voteDate);
         }
         event.setVoteDates(voteDates);
