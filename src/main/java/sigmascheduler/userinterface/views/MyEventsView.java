@@ -131,13 +131,13 @@ public class MyEventsView extends HorizontalLayout implements View {
                     if (clickEvent.getButton() == MouseButton.LEFT && clickEvent.getChildComponent() != delete) {
                         if(UI.getCurrent().getWindows().isEmpty()) {
                             Window w = new EditEventWindow(event);
-                            UI.getCurrent().addWindow(w);
                             w.addCloseListener(new CloseListener() {
                                 @Override
                                 public void windowClose(Window.CloseEvent e) {
                                     fillEvents();
                                 }
                             });
+                            UI.getCurrent().addWindow(w);
                         }
                     }
                 }

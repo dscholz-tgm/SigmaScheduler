@@ -1,21 +1,15 @@
 package sigmascheduler.userinterface.listener;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.DateField;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 import sigmascheduler.engine.EventManager;
 import sigmascheduler.engine.SigmaSchedulerException;
-import sigmascheduler.engine.data.User;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.EditEventWindow;
 
 /**
- * Listenes on the create of an event
+ * Listenes on the publish of an event
  * @author Dominik Scholz
  * @version 0.1
  */

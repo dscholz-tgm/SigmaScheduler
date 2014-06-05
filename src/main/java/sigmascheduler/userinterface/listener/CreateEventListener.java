@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import org.jboss.logging.Logger;
 import sigmascheduler.engine.EventManager;
 import sigmascheduler.engine.SigmaSchedulerException;
 import sigmascheduler.engine.data.User;
@@ -55,7 +56,7 @@ public class CreateEventListener implements Button.ClickListener {
         
         try {
             EventManager em = ((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession().getEventManager();
-            if(window.getPrefill()) em.createEvent(name, description, allowMultipleVotes, dates, member, window.getEvent());
+            if(window.getPrefill()) em.updateEvent(name, description, allowMultipleVotes, dates, member, window.getEvent());
             else em.createEvent(name,description,allowMultipleVotes,dates,member);
             event.getButton().removeClickShortcut();
             window.close();
@@ -64,6 +65,7 @@ public class CreateEventListener implements Button.ClickListener {
                 new Notification("Edited Event \"" + name + "\"", Notification.Type.TRAY_NOTIFICATION) :
                 new Notification("Created new Event \"" + name + "\"", Notification.Type.TRAY_NOTIFICATION);
             note.show(UI.getCurrent().getPage());
+            if(!window.getPrefill()) Logger.getLogger(window.getEvent().getManager().getName()).log(Logger.Level.INFO,"Created Event \"" + name + "\"");
         } catch (SigmaSchedulerException ex) {
             window.displayErrorMessage(ex.getMessage());
         }

@@ -186,12 +186,15 @@ public class EditEventWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%");
         
-        Button publish = new Button("Publish");
-        publish.addStyleName("wide");
-        publish.addStyleName("default");
-        publish.addClickListener(new CreateEventListener(this));
-        menu.addComponent(publish);
-        menu.setComponentAlignment(publish, Alignment.TOP_LEFT);
+        if(prefill) {
+            Button publish = new Button("Publish");
+            publish.addStyleName("wide");
+            publish.addStyleName("default");
+            publish.addClickListener(new CreateEventListener(this));
+            publish.addClickListener(new PublishEventListener(this));
+            menu.addComponent(publish);
+            menu.setComponentAlignment(publish, Alignment.TOP_LEFT);
+        }
         
         Button ok = new Button("Save");
         ok.addStyleName("wide");

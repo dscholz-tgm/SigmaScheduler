@@ -14,7 +14,7 @@ import sigmascheduler.engine.data.User;
 /**
  * Wizard of the magic data-persistence realm
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class DataManager {
 
@@ -85,6 +85,13 @@ public class DataManager {
         return session;
     }
 
+    /**
+     * Executes a query with a parameter
+     * @param queryName the name of the query
+     * @param param the parameter (inserted for :id)
+     * @return the resultlist
+     * @throws SigmaSchedulerException 
+     */
     public List executeQuery(String queryName, Object param) throws SigmaSchedulerException {
         Session session = null;
         List fakeResult;
@@ -103,6 +110,12 @@ public class DataManager {
         return result;
     }
 
+    /**
+     * Executes a query
+     * @param queryName the name of the query
+     * @return the resultlist
+     * @throws SigmaSchedulerException 
+     */
     List<User> executeQuery(String queryName) throws SigmaSchedulerException {
         Session session = null;
         List fakeResult;

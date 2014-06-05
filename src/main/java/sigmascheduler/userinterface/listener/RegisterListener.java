@@ -3,13 +3,14 @@ package sigmascheduler.userinterface.listener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import java.util.Arrays;
+import org.jboss.logging.Logger;
 import sigmascheduler.engine.SigmaSchedulerException;
 import sigmascheduler.engine.UserManager;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.RegisterView;
 
 /**
- * Listenes on the registration
+ * Listenes on the user select
  * @author Dominik Scholz
  * @version 0.1
  */
@@ -39,6 +40,7 @@ public class RegisterListener implements Button.ClickListener {
             um.registerUser(username,email,password);
             event.getButton().removeClickShortcut();
             ((SigmaSchedulerUI) registerView.getUI()).displayLogin();
+            Logger.getLogger(username).log(Logger.Level.INFO,"Registered User \"" + username + "\"");
         } catch (SigmaSchedulerException ex) {
             registerView.displayErrorMessage(ex.getMessage());
         }

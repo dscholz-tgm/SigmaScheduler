@@ -2,6 +2,7 @@ package sigmascheduler.userinterface.listener;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
+import org.jboss.logging.Logger;
 import sigmascheduler.engine.SigmaSchedulerException;
 import sigmascheduler.engine.UserManager;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
@@ -29,6 +30,7 @@ public class LoginListener implements Button.ClickListener {
         try {
             UserManager um = ((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession().getUserManager();
             um.loginUser(username, password);
+            Logger.getLogger(username).log(Logger.Level.INFO,username + " logged in");
             event.getButton().removeClickShortcut();
             ((SigmaSchedulerUI) loginView.getUI()).displayMain();
         } catch (SigmaSchedulerException ex) {

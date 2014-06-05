@@ -13,7 +13,7 @@ import sigmascheduler.engine.data.VoteDate;
 /**
  * Manages the interaction with the Event class
  * @author Dominik Scholz
- * @version 0.2
+ * @version 0.3
  */
 public class EventManager {
     
@@ -25,7 +25,18 @@ public class EventManager {
         dataManager = session.getDataManager();
     }
     
-    public Event createEvent(String name, String description, boolean allowMultipleVotes, List<Date> dates, Set<User> member, Event event) throws SigmaSchedulerException {
+    /**
+     * Updates an event
+     * @param name
+     * @param description
+     * @param allowMultipleVotes
+     * @param dates
+     * @param member
+     * @param event
+     * @return the updated event (useless bcause given as param)
+     * @throws SigmaSchedulerException 
+     */
+    public Event updateEvent(String name, String description, boolean allowMultipleVotes, List<Date> dates, Set<User> member, Event event) throws SigmaSchedulerException {
         //Creating new event
         event.setManager(session.getUser());
         event.setName(name);
@@ -51,6 +62,16 @@ public class EventManager {
         return event;
     }
     
+    /**
+     * Creates a new event
+     * @param name
+     * @param description
+     * @param allowMultipleVotes
+     * @param dates
+     * @param member
+     * @return the new event
+     * @throws SigmaSchedulerException 
+     */
     public Event createEvent(String name, String description, boolean allowMultipleVotes, List<Date> dates, Set<User> member) throws SigmaSchedulerException {
         //Creating new event
         Event event = new Event();
@@ -81,14 +102,30 @@ public class EventManager {
         return event;
     }
     
+    /**
+     * Returns all events managed by the given user
+     * @param manager the manager of the events
+     * @return a list of all events managed by the given user
+     * @throws SigmaSchedulerException 
+     */
     public List<Event> getManagedEvents(User manager) throws SigmaSchedulerException {
         return dataManager.executeQuery("getManagedEvents",manager);
     }
 
+    /**
+     * Deletes an event
+     * @param event
+     * @throws SigmaSchedulerException 
+     */
     public void delete(Event event) throws SigmaSchedulerException {
         dataManager.delete(event);
     }
 
+    /**
+     * Publishes an event
+     * @param event
+     * @throws SigmaSchedulerException 
+     */
     public void publishEvent(Event event) throws SigmaSchedulerException {
         event.setState(EventState.VOTEABLE);
         dataManager.save(event);
