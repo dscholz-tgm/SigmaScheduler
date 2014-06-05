@@ -2,13 +2,13 @@ package sigmascheduler.userinterface.listener;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import sigmascheduler.engine.EventManager;
 import sigmascheduler.engine.SigmaSchedulerException;
-import sigmascheduler.engine.SigmaSchedulerSession;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.EditEventWindow;
 
@@ -52,9 +52,15 @@ public class CreateEventListener implements Button.ClickListener {
         
         try {
             EventManager em = ((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession().getEventManager();
-            em.createEvent(name,description,allowMultipleVotes,dates);
+            if(window.getPrefill()) em.createEvent(name, description, allowMultipleVotes, dates, window.getEvent());
+            else em.createEvent(name,description,allowMultipleVotes,dates);
             event.getButton().removeClickShortcut();
             window.close();
+            Notification note;
+            note = window.getPrefill() ? 
+                new Notification("Edited Event \"" + name + "\"", Notification.Type.TRAY_NOTIFICATION) :
+                new Notification("Created new Event \"" + name + "\"", Notification.Type.TRAY_NOTIFICATION);
+            note.show(UI.getCurrent().getPage());
         } catch (SigmaSchedulerException ex) {
             window.displayErrorMessage(ex.getMessage());
         }

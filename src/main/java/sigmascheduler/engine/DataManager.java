@@ -2,7 +2,6 @@ package sigmascheduler.engine;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,7 +40,7 @@ public class DataManager {
         Session session = buildSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.save(object);
+            session.saveOrUpdate(object);
             transaction.commit();
         } catch (RuntimeException ex) {
             transaction.rollback();

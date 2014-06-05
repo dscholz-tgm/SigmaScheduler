@@ -26,6 +26,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import java.text.DecimalFormat;
+import sigmascheduler.engine.SigmaSchedulerException;
 import sigmascheduler.engine.SigmaSchedulerSession;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 
@@ -35,7 +36,8 @@ import sigmascheduler.userinterface.SigmaSchedulerUI;
  */
 public class DashboardView extends VerticalLayout implements View {
 
-    Table t;
+    private Table t;
+    private SigmaSchedulerSession session = ((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession();
 
     public DashboardView() {
         setSizeFull();
@@ -98,12 +100,17 @@ public class DashboardView extends VerticalLayout implements View {
         GridLayout textInfos = new GridLayout(2,3);
         textInfos.setSpacing(true);
         textInfos.setMargin(true);
-        Label username = new Label(((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession().getUser().getName());
+        Label username = new Label(session.getUser().getName());
         username.setStyleName("h2");
         Label stat1d = new Label("Voted Events:");
         Label stat1v = new Label("0");
         Label stat2d = new Label("Created Events:");
-        Label stat2v = new Label("0");
+        Label stat2v;
+        try {
+            stat2v = new Label(session.getEventManager().getManagedEvents(session.getUser()).size() + "");
+        } catch (SigmaSchedulerException ex) {
+            stat2v = new Label("0");
+        }
         textInfos.addComponent(username,0,0);
         textInfos.addComponent(stat1d,0,1);
         textInfos.addComponent(stat1v,1,1);
@@ -113,7 +120,7 @@ public class DashboardView extends VerticalLayout implements View {
         info.addStyleName("layout-panel");
         info.addStyleName("plain");
         info.setSizeFull();
-        Image avatar = ((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession().getUserManager().getAvatar();
+        Image avatar = session.getUserManager().getAvatar();
         avatar.setStyleName("clear-panel");
         avatar.setHeight("100%");
         info.addComponent(avatar);

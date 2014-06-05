@@ -6,7 +6,6 @@ import sigmascheduler.engine.SigmaSchedulerException;
 import sigmascheduler.engine.UserManager;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.LoginView;
-import sigmascheduler.userinterface.views.RegisterView;
 
 /**
  * Listenes on the LoginButton

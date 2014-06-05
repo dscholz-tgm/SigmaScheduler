@@ -1,6 +1,5 @@
 package sigmascheduler.engine;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +24,31 @@ public class EventManager {
     public EventManager(SigmaSchedulerSession session) {
         this.session = session;
         dataManager = session.getDataManager();
+    }
+    
+    public Event createEvent(String name, String description, boolean allowMultipleVotes, List<Date> dates, Event event) throws SigmaSchedulerException {
+        //Creating new event
+        event.setManager(session.getUser());
+        event.setName(name);
+        event.setDescription(description);
+        
+        event.setAllowMultipleVotes(allowMultipleVotes);
+        
+        //Parsing vote dates
+        Set<VoteDate> voteDates = new HashSet<VoteDate>();
+        VoteDate voteDate;
+        for(Date date : dates) {
+            voteDate = new VoteDate();
+            voteDate.setDate(date);
+            voteDate.setVoter(new HashSet<User>());
+            voteDates.add(voteDate);
+        }
+        event.setVoteDates(voteDates);
+        
+        //Saving the new event
+        dataManager.save(event);
+        
+        return event;
     }
     
     public Event createEvent(String name, String description, boolean allowMultipleVotes, List<Date> dates) throws SigmaSchedulerException {

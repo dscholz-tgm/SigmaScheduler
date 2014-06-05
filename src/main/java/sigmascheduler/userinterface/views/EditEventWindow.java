@@ -39,6 +39,8 @@ public class EditEventWindow extends Window {
     private static final int MAX_DATES = 15;
     private static final int DEFAULT_DATEFIELD_AMOUNT = 3;
     private Label error;
+    private boolean prefill;
+    private sigmascheduler.engine.data.Event tempEvent;
 
     public EditEventWindow() {
         super("New Event");
@@ -61,6 +63,7 @@ public class EditEventWindow extends Window {
     
     public EditEventWindow(sigmascheduler.engine.data.Event event) {
         super("Edit Event - " + event.getName());
+        tempEvent = event;
         
         form = new FormLayout();
         dateFields = new ArrayList<DateField>();
@@ -83,7 +86,7 @@ public class EditEventWindow extends Window {
     }
     
     private Component buildForm(sigmascheduler.engine.data.Event event) {
-        boolean prefill = event != null;
+        prefill = event != null;
         
         form.setSizeUndefined();
         form.setMargin(true);
@@ -217,5 +220,7 @@ public class EditEventWindow extends Window {
     public String getEventDescription() { return description.getValue(); }
     public boolean getAllowMultipleVotes() { return allowMultipleVotes.getValue(); }
     public List<DateField> getDateFields() {  return dateFields; }
+    public boolean getPrefill() { return prefill; }
+    public sigmascheduler.engine.data.Event getEvent() { return tempEvent; }
 }
     
