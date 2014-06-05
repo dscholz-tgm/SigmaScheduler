@@ -7,8 +7,10 @@ import com.vaadin.ui.UI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import sigmascheduler.engine.EventManager;
 import sigmascheduler.engine.SigmaSchedulerException;
+import sigmascheduler.engine.data.User;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.EditEventWindow;
 
@@ -39,6 +41,7 @@ public class CreateEventListener implements Button.ClickListener {
         
         List<DateField> dateFields = window.getDateFields();
         List<Date> dates = new ArrayList<Date>();
+        Set<User> member = window.getMember();
         Date date;
         for(DateField dateField : dateFields) {
             date = dateField.getValue();
@@ -52,8 +55,8 @@ public class CreateEventListener implements Button.ClickListener {
         
         try {
             EventManager em = ((SigmaSchedulerUI)UI.getCurrent()).getSigmaSchedulerSession().getEventManager();
-            if(window.getPrefill()) em.createEvent(name, description, allowMultipleVotes, dates, window.getEvent());
-            else em.createEvent(name,description,allowMultipleVotes,dates);
+            if(window.getPrefill()) em.createEvent(name, description, allowMultipleVotes, dates, member, window.getEvent());
+            else em.createEvent(name,description,allowMultipleVotes,dates,member);
             event.getButton().removeClickShortcut();
             window.close();
             Notification note;

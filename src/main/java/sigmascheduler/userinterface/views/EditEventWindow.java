@@ -8,20 +8,30 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import sigmascheduler.engine.data.User;
 import sigmascheduler.engine.data.VoteDate;
 import sigmascheduler.userinterface.listener.CreateEventListener;
+import sigmascheduler.userinterface.listener.SelectUserListener;
 
 /**
  *
@@ -35,18 +45,23 @@ public class EditEventWindow extends Window {
     private CheckBox allowMultipleVotes;
     private List<DateField> dateFields;
     private GridLayout dateFieldLayout;
-    private Button addDate;
+    private Button addEvent;
+    private Button addUser;
     private static final int MAX_DATES = 15;
     private static final int DEFAULT_DATEFIELD_AMOUNT = 3;
     private Label error;
     private boolean prefill;
     private sigmascheduler.engine.data.Event tempEvent;
+    private Set<User> member;
+    private Layout memberContainer;
 
     public EditEventWindow() {
         super("New Event");
         
         form = new FormLayout();
+        memberContainer = new CssLayout();
         dateFields = new ArrayList<DateField>();
+        member = new TreeSet<User>();
         
         setModal(true);
         setClosable(false);
@@ -66,7 +81,9 @@ public class EditEventWindow extends Window {
         tempEvent = event;
         
         form = new FormLayout();
+        memberContainer = new CssLayout();
         dateFields = new ArrayList<DateField>();
+        member = new HashSet<User>();
         
         setModal(true);
         setClosable(false);
@@ -108,6 +125,7 @@ public class EditEventWindow extends Window {
         if(prefill) allowMultipleVotes.setValue(event.isAllowMultipleVotes());
         form.addComponent(allowMultipleVotes);
         
+        //Select Dates
         dateFieldLayout = new GridLayout(3,5);
         dateFieldLayout.setSpacing(true);
         dateFieldLayout.setCaption("Dates");
@@ -123,16 +141,40 @@ public class EditEventWindow extends Window {
         while(dateFieldLayout.getComponentCount() < DEFAULT_DATEFIELD_AMOUNT) dateFieldLayout.addComponent(new DateComponent(buildDateField()));
         form.addComponent(dateFieldLayout);
         
-        addDate = new Button("+");
-        addDate.addClickListener(new ClickListener() {
+        addEvent = new Button("+");
+        addEvent.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                dateFieldLayout.replaceComponent(addDate, new DateComponent(buildDateField()));
-                if(dateFieldLayout.getComponentCount() < MAX_DATES) dateFieldLayout.addComponent(addDate);
+                dateFieldLayout.replaceComponent(addEvent, new DateComponent(buildDateField()));
+                if(dateFieldLayout.getComponentCount() < MAX_DATES) dateFieldLayout.addComponent(addEvent);
             }
         });
-        addDate.addStyleName("add-button");
-        dateFieldLayout.addComponent(addDate);
+        addEvent.addStyleName("add-button");
+        dateFieldLayout.addComponent(addEvent);
+        
+        //Select Member
+        memberContainer.setCaption("Member");
+        memberContainer.setWidth("480px");
+        if(prefill) {
+            member.addAll(event.getMember());
+            for(User user : member) {
+                memberContainer.addComponent(new UserComponent(user));
+            }
+        }
+        form.addComponent(memberContainer);
+        
+        addUser = new Button("+");
+        addUser.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                SelectUserListener listener = new SelectUserListener(EditEventWindow.this);
+                SelectUserWindow w = new SelectUserWindow(listener);
+                listener.setSelectUserWindow(w);
+                UI.getCurrent().addWindow(w);
+            }
+        });
+        addUser.addStyleName("add-button");
+        form.addComponent(addUser);
         return form;
     }
 
@@ -177,6 +219,11 @@ public class EditEventWindow extends Window {
         return dateField;
     }
 
+    public void addMember(Set<User> selectedUser) {
+        member.addAll(selectedUser);
+        refillMember();
+    }
+
     private class DateComponent extends HorizontalLayout {
         public DateComponent(final DateField dateField) {
             setSpacing(true);
@@ -188,18 +235,42 @@ public class EditEventWindow extends Window {
                 @Override
                 public void buttonClick(ClickEvent event) {
                     dateFields.remove(dateField);
-                    refillDateFieldLayout();
+                    refillFieldLayout();
                 }
             });
             addComponent(deleteField);
         }
     }
     
-    private void refillDateFieldLayout() {
+    private class UserComponent extends HorizontalLayout {
+        public UserComponent(final User user) {
+            setSpacing(true);
+            setStyleName("user-component");
+            addComponent(new Label(user.getName()));
+            Button deleteField = new Button("×");
+            deleteField.setPrimaryStyleName("delete-user-button");
+            deleteField.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                    member.remove(user);
+                    memberContainer.removeComponent(UserComponent.this);
+                }
+            });
+            addComponent(deleteField);
+        }
+    }
+    
+    private void refillFieldLayout() {
         dateFieldLayout.removeAllComponents();
         for(DateField dateField : dateFields) dateFieldLayout.addComponent(new DateComponent(dateField));
-        if(dateFieldLayout.getComponentCount() < MAX_DATES) dateFieldLayout.addComponent(addDate);
+        if(dateFieldLayout.getComponentCount() < MAX_DATES) dateFieldLayout.addComponent(addEvent);
     }
+    
+    private void refillMember() {
+        memberContainer.removeAllComponents();
+        for(User user : member) memberContainer.addComponent(new UserComponent(user));
+    }
+
     
     public void displayErrorMessage(String message) {
         //Remove old error message
@@ -222,5 +293,6 @@ public class EditEventWindow extends Window {
     public List<DateField> getDateFields() {  return dateFields; }
     public boolean getPrefill() { return prefill; }
     public sigmascheduler.engine.data.Event getEvent() { return tempEvent; }
+    public Set<User> getMember() { return member; }
 }
     

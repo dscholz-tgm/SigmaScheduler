@@ -326,6 +326,32 @@
     .delete-datefield-button:hover {
         background-color: #c00;
     }
+    
+    .user-component {
+        @include border-radius(10px);
+        background-color: #F0F0F0;
+        padding-left: 6px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+    }
+    
+    .delete-user-button {
+        color: white;
+        background-color: #ccc;
+        @include border-radius(20px);
+        text-align: center;
+        margin-left: -8px;
+        margin-right: 4px;
+        cursor: pointer;
+        line-height: 16px;
+        margin-bottom: 2px;
+        width: 16px;
+        padding-right: 1px;
+    }
+
+    .delete-user-button:hover {
+        background-color: #c00;
+    }
 
     .v-datefield-calendarpanel-month {
         color: black;

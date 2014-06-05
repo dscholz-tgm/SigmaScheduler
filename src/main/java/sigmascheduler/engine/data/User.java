@@ -1,6 +1,7 @@
 package sigmascheduler.engine.data;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.persistence.*;
 
@@ -12,12 +13,18 @@ import javax.persistence.*;
  * @version 0.1
  */
 @Entity
-@NamedQuery(
-    //Returns the user with the associated name
-    name="getUser",
-    query="from User u where u.name = :id")
+@NamedQueries({
+    @NamedQuery(
+        //Returns all users, remove when we are really popular
+        name="getAllUsers",
+        query="from User u"),
+    @NamedQuery(
+        //Returns the user with the associated name
+        name="getUser",
+        query="from User u where u.name = :id")
+})
 @Table(name="ssuser")
-public class User implements Serializable {
+public class User implements Serializable, Comparable {
     
     @Id
     @GeneratedValue
@@ -38,4 +45,25 @@ public class User implements Serializable {
     public void setName(String name) { this.name = name; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(byte[] password) { this.password = password; }
+    
+    @Override
+    public boolean equals(Object o) {
+        return o.getClass() == this.getClass() && id == ((User) o).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 13 * hash + this.id;
+        hash = 13 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 13 * hash + (this.email != null ? this.email.hashCode() : 0);
+        hash = 13 * hash + Arrays.hashCode(this.password);
+        return hash;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o.getClass() != this.getClass()) return 0;
+        else return name.compareTo(((User) o).getName());
+    }
 }

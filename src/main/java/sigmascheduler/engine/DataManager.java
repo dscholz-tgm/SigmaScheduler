@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import sigmascheduler.engine.data.User;
 
 /**
  * Wizard of the magic data-persistence realm
@@ -92,6 +93,23 @@ public class DataManager {
             session = buildSession();
             Query query = session.getNamedQuery(queryName);
             query.setParameter("id", param);
+            fakeResult = query.list();
+            for(Object o : fakeResult) result.add(o);
+        } catch (Exception ex) {
+            throw new SigmaSchedulerException(ex.getMessage());
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    List<User> executeQuery(String queryName) throws SigmaSchedulerException {
+        Session session = null;
+        List fakeResult;
+        List result = new ArrayList<Object>();
+        try {
+            session = buildSession();
+            Query query = session.getNamedQuery(queryName);
             fakeResult = query.list();
             for(Object o : fakeResult) result.add(o);
         } catch (Exception ex) {

@@ -37,7 +37,7 @@ public class Event implements Serializable {
 
     private boolean allowMultipleVotes;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> member;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

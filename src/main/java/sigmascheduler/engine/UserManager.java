@@ -58,6 +58,10 @@ public class UserManager {
         session.setUser(user);
         return user;
     }
+    
+    public List<User> getAllUsers() throws SigmaSchedulerException {
+        return manager.executeQuery("getAllUsers");
+    }
 
     public List<User> searchUser(String name) {
 //        hql query to search all users with regular expression "name"
