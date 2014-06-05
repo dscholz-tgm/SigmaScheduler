@@ -31,6 +31,7 @@ import java.util.TreeSet;
 import sigmascheduler.engine.data.User;
 import sigmascheduler.engine.data.VoteDate;
 import sigmascheduler.userinterface.listener.CreateEventListener;
+import sigmascheduler.userinterface.listener.PublishEventListener;
 import sigmascheduler.userinterface.listener.SelectUserListener;
 
 /**
@@ -185,6 +186,13 @@ public class EditEventWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%");
         
+        Button publish = new Button("Publish");
+        publish.addStyleName("wide");
+        publish.addStyleName("default");
+        publish.addClickListener(new CreateEventListener(this));
+        menu.addComponent(publish);
+        menu.setComponentAlignment(publish, Alignment.TOP_LEFT);
+        
         Button ok = new Button("Save");
         ok.addStyleName("wide");
         ok.addStyleName("default");
@@ -193,7 +201,7 @@ public class EditEventWindow extends Window {
         menu.addComponent(ok);
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
-
+        
         Button cancel = new Button("Cancel");
         cancel.addClickListener(new ClickListener() {
             @Override

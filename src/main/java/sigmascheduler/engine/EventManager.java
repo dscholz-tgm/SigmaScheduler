@@ -88,5 +88,10 @@ public class EventManager {
     public void delete(Event event) throws SigmaSchedulerException {
         dataManager.delete(event);
     }
+
+    public void publishEvent(Event event) throws SigmaSchedulerException {
+        event.setState(EventState.VOTEABLE);
+        dataManager.save(event);
+    }
     
 }
