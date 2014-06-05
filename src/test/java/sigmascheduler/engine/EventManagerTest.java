@@ -79,6 +79,11 @@ private Event event = new Event() ;
         event = eventm.createEvent(name, description, allowMultipleVotes, dates,member);
         assertEquals(name, event.getName());
         assertEquals(description, event.getDescription());
+        String name1 = "UpdateTest";
+        String desc1 = "Update";
+        eventm.createEvent(name1, desc1, allowMultipleVotes, dates,member,event);
+        assertEquals(name1, event.getName());
+        assertEquals(desc1, event.getDescription());
         // TODO review the generated test code and remove the default call to fail.
     }
 
