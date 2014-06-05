@@ -86,6 +86,7 @@ public class RegisterView extends VerticalLayout implements View {
         nav.setSpacing(true);
         
         final Button back = new Button("Back");
+        back.setId("back");
         back.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -95,6 +96,7 @@ public class RegisterView extends VerticalLayout implements View {
         nav.addComponent(back);
 
         final Button signin = new Button("Sign up");
+        signin.setId("signin");
         signin.addStyleName("default");
         signin.setClickShortcut(KeyCode.ENTER, null);
         nav.addComponent(signin);
