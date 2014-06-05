@@ -12638,7 +12638,7 @@ body .dashboard.v-app .v-app-loading {
 	line-height: 1;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 	text-align: center;
-	cursor: default;
+	cursor: pointer;
 	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -12646,6 +12646,7 @@ body .dashboard.v-app .v-app-loading {
 
 .dashboard .delete-button:hover {
 	background: #4e5153;
+	cursor: pointer;
 }
 
 .dashboard .delete-button:focus {
@@ -12670,6 +12671,13 @@ body .dashboard.v-app .v-app-loading {
 .dashboard .add-button {
 	padding: 1px;
 	width: 2em;
+}
+
+.dashboard .link {
+	text-decoration: underline;
+	font-size: 13px;
+	height: 20px;
+	margin-left: 4px;
 }
 
 .dashboard .datefield-component {

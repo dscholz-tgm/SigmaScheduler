@@ -25,7 +25,7 @@ public class Comment implements Serializable {
     
     private String text;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Event event;
 
     public int getId() { return id; }

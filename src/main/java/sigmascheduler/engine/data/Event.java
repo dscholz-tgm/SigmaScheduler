@@ -37,13 +37,13 @@ public class Event implements Serializable {
 
     private boolean allowMultipleVotes;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> member;
     
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<VoteDate> voteDates;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
     
     public int getId() { return id; }

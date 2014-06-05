@@ -12,7 +12,7 @@ import sigmascheduler.engine.data.User;
 /**
  * Manages the interaction with the User class
  * @author Dominik Scholz
- * @version 0.1
+ * @version 0.2
  */
 public class UserManager {
     
@@ -47,7 +47,7 @@ public class UserManager {
         List<User> result = manager.executeQuery("getUser",name);
         
         //Check if user is registerd
-        if(result.isEmpty()) throw new SigmaSchedulerException("register","Username not registerd, register user?");
+        if(result.isEmpty()) throw new SigmaSchedulerException("register","Username not registerd");
         
         User user = (User) result.get(0);
         

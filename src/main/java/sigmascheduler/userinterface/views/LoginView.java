@@ -9,6 +9,7 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -16,8 +17,10 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import java.nio.charset.Charset;
+import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.listener.LoginListener;
 
 /**
@@ -69,6 +72,7 @@ public class LoginView extends VerticalLayout implements View {
         fields.addComponent(password);
 
         final Button signin = new Button("Sign In");
+        signin.setId("signin");
         signin.addStyleName("default");
         signin.setClickShortcut(KeyCode.ENTER, null);
         fields.addComponent(signin);
@@ -77,6 +81,17 @@ public class LoginView extends VerticalLayout implements View {
         signin.addClickListener(new LoginListener(this));
         
         loginPanel.addComponent(fields);
+        
+        final Button signup = new Button("Not registerd yet?, Sign up!");
+        signup.setId("signup");
+        signup.setPrimaryStyleName("link");
+        signup.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                ((SigmaSchedulerUI) UI.getCurrent()).setContent(new RegisterView());
+            }
+        });
+        loginPanel.addComponent(signup);
 
         addComponent(loginPanel);
         setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);

@@ -3,7 +3,6 @@ package sigmascheduler.userinterface.listener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import sigmascheduler.engine.SigmaSchedulerException;
-import sigmascheduler.engine.SigmaSchedulerSession;
 import sigmascheduler.engine.UserManager;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.LoginView;
@@ -35,7 +34,7 @@ public class LoginListener implements Button.ClickListener {
             ((SigmaSchedulerUI) loginView.getUI()).displayMain();
         } catch (SigmaSchedulerException ex) {
             loginView.displayErrorMessage(ex.getMessage());
-            if(ex.getArgument().equals("register")) loginView.getUI().setContent(new RegisterView());
+//            if(ex.getArgument().equals("register")) loginView.getUI().setContent(new RegisterView());
         }
     }
 }

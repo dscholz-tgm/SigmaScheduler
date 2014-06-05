@@ -21,7 +21,7 @@ public class VoteDate implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> voter;
 
     public int getId() { return id; }

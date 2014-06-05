@@ -9,15 +9,17 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import java.nio.charset.Charset;
+import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.listener.RegisterListener;
 
 /**
@@ -79,12 +81,26 @@ public class RegisterView extends VerticalLayout implements View {
         email = new TextField("Email (optional):");
         fields.addComponent(email);
         fields.setComponentAlignment(email, Alignment.MIDDLE_CENTER);
+        
+        HorizontalLayout nav = new HorizontalLayout();
+        nav.setSpacing(true);
+        
+        final Button back = new Button("Back");
+        back.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                ((SigmaSchedulerUI) UI.getCurrent()).displayLogin();
+            }
+        });
+        nav.addComponent(back);
 
         final Button signin = new Button("Sign up");
         signin.addStyleName("default");
         signin.setClickShortcut(KeyCode.ENTER, null);
-        fields.addComponent(signin);
-        fields.setComponentAlignment(signin, Alignment.BOTTOM_CENTER);
+        nav.addComponent(signin);
+        
+        fields.addComponent(nav);
+        fields.setComponentAlignment(nav, Alignment.BOTTOM_CENTER);
 
         signin.addClickListener(new RegisterListener(this));
         

@@ -52,7 +52,7 @@ public class EventManager {
         event.setVoteDates(voteDates);
         
         //Saving the new event
-        DataManager.get().save(event);
+        dataManager.save(event);
         
         return event;
     }
@@ -131,7 +131,7 @@ public class EventManager {
 //    }
 
     public void delete(Event event) throws SigmaSchedulerException {
-        DataManager.get().delete(event);
+        dataManager.delete(event);
     }
     
 }

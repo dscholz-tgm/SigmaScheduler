@@ -4,7 +4,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import java.util.Arrays;
 import sigmascheduler.engine.SigmaSchedulerException;
-import sigmascheduler.engine.SigmaSchedulerSession;
 import sigmascheduler.engine.UserManager;
 import sigmascheduler.userinterface.SigmaSchedulerUI;
 import sigmascheduler.userinterface.views.RegisterView;

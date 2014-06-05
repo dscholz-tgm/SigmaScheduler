@@ -1,6 +1,8 @@
 package sigmascheduler.engine;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -85,12 +87,14 @@ public class DataManager {
 
     public List executeQuery(String queryName, Object param) throws SigmaSchedulerException {
         Session session = null;
-        List result;
+        List fakeResult;
+        List result = new ArrayList<Object>();
         try {
             session = buildSession();
             Query query = session.getNamedQuery(queryName);
             query.setParameter("id", param);
-            result = query.list();
+            fakeResult = query.list();
+            for(Object o : fakeResult) result.add(o);
         } catch (Exception ex) {
             throw new SigmaSchedulerException(ex.getMessage());
         } finally {
