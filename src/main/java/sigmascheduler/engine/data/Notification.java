@@ -15,11 +15,11 @@ import javax.persistence.*;
     @NamedQuery(
         //Returns all unread notifications of a user
         name="getUnreadNotifications",
-        query="from Notification n where u.name = :id and u.isRead = false"),
+        query="from Notification n where n.user = :id and n.isRead = false"),
     @NamedQuery(
         //Returns all notifications of a user
         name="getNotifications",
-        query="from Notification n where u.name = :id ")
+        query="from Notification n where n.user = :id")
 })
 public class Notification implements Serializable, Comparable {
 
