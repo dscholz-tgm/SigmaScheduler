@@ -118,6 +118,8 @@ public class EventManager {
      * @throws SigmaSchedulerException 
      */
     public void delete(Event event) throws SigmaSchedulerException {
+        event.setMember(new HashSet<User>());
+        dataManager.save(event);
         dataManager.delete(event);
     }
 
